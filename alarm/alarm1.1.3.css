@@ -1,0 +1,124 @@
+body{
+background-color:#0B0D1D;
+margin:100px 0 0 0;
+padding:0;
+box-sizing:border-box;	
+}
+
+#container{
+	width:35%;
+	height:400px;
+	background:#B1B7DC;
+	margin:0 auto;
+	padding-top:50px;
+	border:solid 2px red;	
+}
+
+#displayTime{
+	text-align:center;
+	font-family:digital-7;
+	font-size:58px;
+	padding-bottom:20px;
+		
+}
+#select{
+	padding-left:33px;	
+}
+
+select, input{
+	padding:10px 20px;
+	font-family:tahoma;
+	font-size:26px;
+		
+}
+input{
+	background:black;
+	color:#fff;
+	border:none;
+	font-family:"Comic Sans MS", cursive;
+	box-shadow:2px 2px 2px black;
+		
+}
+#select input[value="Dismiss"]{
+	background:red;
+	position:relative;
+	left:155px;
+	top:20px;
+	padding:5px;
+	font-size:20px;
+	width:96px;
+	
+}
+
+
+#select p{
+	text-align:right;
+	padding-right:40px;
+	font-family:cursive;
+	font-size:25px;	
+}
+
+#status{
+	height:20px;
+	width:90%;
+	background-color:#B1B7DC;
+	margin:0 auto 30px auto;
+	text-align:center;	
+}
+
+@media only screen and (max-width:760px){
+	body{
+		
+	}
+	#container{
+		width:100%;
+		padding-left:5%;
+		height:auto;
+		background:#B1B7DC;
+		margin:0 auto;
+		padding-top:0;
+		border:solid 2px red;
+		
+	}
+	select{
+		width:90%;	
+	}
+	
+	#select{
+	padding-left:0px;
+}
+	
+	#select input[value="Dismiss"]{
+	background:red;
+	position:relative;
+	left:0px;
+	top:0px;
+	padding:5px;
+	font-size:20px;
+	width:96px;
+	
+}
+
+input{
+	background:black;
+	color:#fff;
+	border:none;
+	font-family:"Comic Sans MS", cursive;
+	box-shadow:2px 2px 2px black;
+	width:90%;
+	margin-top:10px;
+		
+}
+#select input[value="Dismiss"]{
+	background:red;
+	position:relative;
+	left:0;
+	top:0;
+	padding:0;
+	font-size:20px;
+	width:90%;
+	margin-top:10px;
+	
+}	
+
+}

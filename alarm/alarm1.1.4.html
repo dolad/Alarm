@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>alarm1.1.4</title>
+<link type="text/css" href="alarm1.1.3.css" rel="stylesheet" />
+</head>
+
+<body onLoad="createOptions()">
+	<div id="container">
+		<div id="displayTime"></div>
+        <div id="status"><marquee id="marquee" loop="3"></marquee></div>
+			<div id="select">
+				<select id="hour"></select>
+    			<select id="minute"></select>
+    			<select id="second"></select>
+    			<input type="button" value="Save" onClick="alarm()"><br />
+                <input type="button" value="Dismiss" onClick="dismiss()" id="dismis"><br /><br /><br />
+                <p>smart<span style="color:purple">ALARM!</span></p>
+			</div>
+
+	</div>
+
+<script>
+function showtime(){
+date=new Date();
+hours=date.getHours();
+minutes=date.getMinutes();
+seconds=date.getSeconds()
+hours=(hours<10)?"0"+hours:hours;
+minutes=(minutes<10)?"0"+minutes:minutes;
+seconds=(seconds<10)?"0"+seconds:seconds;
+time=hours+":"+minutes+":"+seconds;
+document.getElementById("displayTime").innerText=time;
+document.getElementById("displayTime").textContent=time;
+setTimeout(showtime, 1000);
+}
+showtime();
+//create hours options for the dropdown box
+function createOptions(){
+	hrOptions = "<option value='HH'>HH</option>";
+	for(x=0; x<24; x++){
+		x=(x<10) ? "0"+x : x;
+		hrOptions += "<option value='"+x+"'>"+x+"</option>";//come back later!
+		
+	}
+	document.getElementById("hour").innerHTML = hrOptions;	
+//create minutes for the drop down box	
+	minOptions = "<option value='MM'>MM</option>";
+	for(x=0; x<60; x++){
+		x=(x<10) ? "0"+x : x;
+		minOptions += "<option value='"+x+"'>"+x+"</option>";
+	}
+	document.getElementById("minute").innerHTML=minOptions;
+	
+	//create seconds for the dropdown box
+	secOptions = "<option value='SS'>SS</option>";
+	for(x=0; x<60; x++){
+		x=(x<10) ? "0"+x : x;
+		secOptions += "<option value='"+x+"'>"+x+"</option>";
+	}
+	document.getElementById("second").innerHTML=secOptions;
+	document.getElementById("dismis").disabled = true;
+	
+}
+function aud(){
+	document.getElementById("dismis").disabled = false;
+	audio = new Audio('alarmclock.mp3');
+	audio.loop = true;//well, I will never forget this line because ignorance of it caused me days of anger, hunger and frustration!
+	audio.play();
+	}
+	
+	function countDown(){
+		if(parseInt(hrLeft)==0){
+			document.getElementById("marquee").innerText="Alarm is set for "+parseInt(minLeft)+" minute(s) and "+secLeft+" second(s) from now!";
+	document.getElementById("marquee").textContent="Alarm is set for "+parseInt(minLeft)+" minute(s) and "+secLeft+" second(s) from now!";
+		}
+		if(parseInt(minLeft)==0){
+			document.getElementById("marquee").innerText="Alarm is set for "+secLeft+" second(s) from now!";
+	document.getElementById("marquee").textContent="Alarm is set for "+secLeft+" second(s) from now!";	
+		}else{
+	document.getElementById("marquee").innerText="Alarm is set for "+parseInt(hrLeft)+" hour(s), "+parseInt(minLeft)+" minute(s) and "+secLeft+" second(s) from now!";
+	document.getElementById("marquee").textContent="Alarm is set for "+parseInt(hrLeft)+" hour(s), "+parseInt(minLeft)+" minute(s) and "+secLeft+" second(s) from now!";
+		}
+		
+		
+	}
+
+function alarm(){
+	present=new Date();
+	hr=present.getHours();
+	mm=present.getMinutes();
+	sec=present.getSeconds();
+	setHr=document.getElementById("hour").value;
+	setMin = document.getElementById("minute").value;
+	setSec = document.getElementById("second").value;
+	//check if input values are numbers
+	if(isNaN(setHr)){
+	alert("please choose a number for HH");
+	document.getElementById("hour")="";	
+	}
+	if(isNaN(setMin)){
+	alert("please choose a number for MM");
+	document.getElementById("hour")="";	
+	}
+	if(isNaN(setSec)){
+	alert("please choose a number for SS");
+	document.getElementById("hour")="";	
+	}
+	presentMilli = parseInt(hr*60*60*1000) + parseInt(mm*60*1000) + parseInt(sec*1000);
+	setMilli = parseInt(setHr*60*60*1000) + parseInt(setMin*60*1000) + parseInt(setSec*1000);
+	diff = setMilli - presentMilli;
+	if(diff>0){
+			setTimeout(aud, diff);
+	}else if(diff<0){
+			diff+=86400000;
+			setTimeout(aud, diff);
+	}
+	totalSec = diff/1000;
+	hrLeft = totalSec/3600;
+	r = totalSec%3600;
+	minLeft = r/60;
+	secLeft = r%60;
+	//to calculate time left for the alarm to sound!
+	countDown();
+	
+	
+}
+
+	function dismiss(){
+			n1 = Math.floor(Math.random()*20);
+			n2 = Math.floor(Math.random() * 20);
+			solution = n1*n2*5;
+			display = n1+' x '+n2+' x '+5;
+			question = prompt(display);
+			if(question == solution){
+				audio.pause();	
+			}
+	}
+
+
+</script>
+
+</body>
+</html>
